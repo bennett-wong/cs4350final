@@ -170,6 +170,31 @@ public class Driver {
 				 deleteBus(BusID7);
 			 	break;
 			 case 8:  
+				System.out.print("Please enter in the required information to record the data");
+				System.out.print("TripNumber: ");
+				int TripNumber8 = s1.nextInt();
+				System.out.print("\n");
+				System.out.print("Date: ");
+				String Date8 = s1.next();
+				System.out.print("\n");
+				System.out.print("ScheduledStartTime: ");
+				String ScheduledStartTime8 = s1.next();
+				System.out.print("\n");
+				System.out.print("StopNumber: ");
+				int StopNumber8 = s1.nextInt();
+				System.out.print("\n");
+				System.out.print("ActualStartTime: ");
+				String ActualStartTime8 = s1.next();
+				System.out.print("\n");
+				System.out.print("ActualArrivalTime: ");
+				String ActualArrivalTime8 = s1.next();
+				System.out.print("\n");
+				System.out.print("NumberOfPassengersIn: ");
+				int NumberOfPassengersIn8 = s1.nextInt();
+				System.out.print("\n");
+				System.out.print("NumberOfPassengersOut: ");
+				int NumberOfPassengersOut8 = s1.nextInt();
+				System.out.print("\n");
 			 	break;
 			 case 9:
 				 done = true;
@@ -339,7 +364,24 @@ public class Driver {
 	 * #8
 	 */
 	
-	public static void insertData() {
-		
+	public static void insertData(int TripNumber, String Date, String ScheduledStartTime, int StopNumber, String ActualStartTime, String ActualArrivalTime, int PassengersIn, int PassengersOut) {
+		try {
+			//Edit to fit your database
+			Connection myConn = DriverManager.getConnection(url, user, password);
+			
+			Statement myStatement = myConn.createStatement();
+			
+			String sql = "INSERT INTO actualtripstopinfo(TripNumbner, Date, ScheduledStartTime) VALUES( " + TripNumber + ", " + Date + ", " + ScheduledStartTime + ")";
+			myStatement.executeUpdate(sql);		
+			String sql2 = "UPDATE actualtripstopinfo SET StopNumber = " + StopNumber + " WHERE (TripNumber " + TripNumber + " AND Date = " + Date + " AND ScheduledStartTime = " + ScheduledStartTime + ")";
+			myStatement.executeUpdate(sql2);
+			String sql3 = "UPDATE actualtripstopinfo SET ActualStartTime = " + ActualStartTime + ", ActualArrivalTime = " + ActualArrivalTime + ", NumberOfPassengersIn = " + PassengersIn + ", NumberOfPassengersOut = " + PassengersOut + 
+					" WHERE (TripNumber " + TripNumber + " AND Date = " + Date + " AND ScheduledStartTime = " + ScheduledStartTime + "AND StopNumber = " + StopNumber + ")";
+			myStatement.executeUpdate(sql3);
+			System.out.println("Recording Complete.");
+		}
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
 	}
-}	
+}
