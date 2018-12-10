@@ -184,9 +184,27 @@ public class Driver {
 						exc.printStackTrace();
 					}
 				 break;
-			 case 5:  
+			 case 5:
+				 System.out.println("Please enter in the driver name and Driver Telephone Number");
+				 System.out.print("Driver Name: ");
+				 String DriverName5 = s1.next();
+				 System.out.print("\n");
+				 System.out.print("Driver's Telephone Number: ");
+				 String DriverTelephoneNumber5 = s1.nextInt();
+				 addDriver(DriverName5, DriverTelephoneNumber5);
              	break;
-			 case 6:  
+			 case 6:
+				 System.out.println("Please enter in the BusID, Model, and Year");
+				 System.out.print("BusID: ");
+				 String BusID6 = s1.nextInt();
+				 System.out.print("\n");
+				 System.out.print("Model: ");
+				 String Model = s1.next();
+				 System.out.print("\n");
+				 System.out.print("Year: ");
+				 String Year = s1.nextInt();
+				 System.out.print("\n");
+				 addBus(BusID6, Model, Year)
 			 	break;
 			 case 7:  
 			 	break;
@@ -217,5 +235,33 @@ public class Driver {
 		System.out.println("2. Add a set of trip offerings assuming the values of all attributes are given");
 		System.out.println("3. Change the driver for a given Trip offering (i.e given TripNumber, Date, ScheduledStartTime)");
 		System.out.println("4. Change the bus for a given Trip offering.");
+	}
+	public static void addDriver(String DriverName, String DriverTelephoneNumber) {
+		try {
+			
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3380/data", user, password);
+			
+			Statement myStatement = myConn.createStatement();
+			
+			String sql = "INSERT INTO driver (DriverName, DriverTelephoneNumber) VALUES (" + DriverName + ", " + DriverTelephoneNumber + ")";
+			myStatement.exectuteUpdate(sq1);
+		}
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+	}
+	public static void addBus(int BusID, String Model, int Year) {
+		try {
+			
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3380/data", user, password);
+			
+			Statement myStatement = .myConn.createStatement();
+			
+			String sql = "INSERT INTO bus (BusID, Model, Year) VALUES (" + BusID + ", " + Model + ", " + Year + ")";
+			myStatement.exectuteUpdate(sq1);		
+		}
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
 	}
 }	
